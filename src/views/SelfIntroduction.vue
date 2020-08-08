@@ -1,10 +1,15 @@
 <template>
-  <div>
-      <h1>SelfIntroduction.vue</h1>
-  </div>
+  <MessageView />
 </template>
 
 <script>
+import MessageView from '@/components/MessageView';
+
+export default {
+  components: {
+    MessageView
+  }
+}
 
 </script>
 

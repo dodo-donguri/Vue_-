@@ -1,39 +1,33 @@
 <template>
   <aside class="menu">
       <ul class="menu-list">
-          <template v-for="(menuData, index) in menuDataList">
+          <template v-for="{id, name} in menuDataList">
               <router-link
-               :to="menuData.to"
+               :to="id"
                tag="li"
                class="menu-list-title"
-               :key="index"
+               :key="id"
               >
-                <a class="menu-list-title-link">{{menuData.title}}</a>
+                <a class="menu-list-title-link">{{ name }}</a>
               </router-link>
           </template>
+          
       </ul>
   </aside>
 </template>
 
 <script>
-const MENU_DATA_LIST = [
-    {
-        title: '全体連絡',
-        to: { name: 'General' },
-    },
-    {
-        title: '雑談',
-        to: { name: 'Chat' },
-    },
-    {
-        title: '自己紹介',
-        to: { name: 'SelfIntroduction' },
-    }
-];
+import ChannelModel from '../models/Channel';
+
 export default {
+    async created() {
+        const channels = await ChannelModel.fetch();
+        this.menuDataList = channels;
+    },
+
     data() {
         return {
-            menuDataList: MENU_DATA_LIST
+            menuDataList: []
         }
     }
 }
